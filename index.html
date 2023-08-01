@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HTTP GET Example</title>
+</head>
+
+<body>
+    <h1>Hello, World!</h1>
+
+    <script>
+        // Function to handle the HTTP GET request
+        function handleGetRequest() {
+            // Sending the response "Hello, World!" with status code 200 (OK)
+            this.respondWith('Hello, World!', 200);
+        }
+
+        // Function to send the response
+        function respondWith(responseText, statusCode) {
+            // Create a new HTTP Response object with the specified response text and status code
+            const response = new Response(responseText, {
+                status: statusCode,
+                statusText: 'OK',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            });
+
+            // Send the response
+            this.postMessage(response);
+        }
+
+        // Event listener for the 'fetch' event (triggered when the page receives an HTTP request)
+        self.addEventListener('fetch', (event) => {
+            // Handle only GET requests
+            if (event.request.method === 'GET') {
+                // Call the handleGetRequest function to respond with "Hello, World!"
+                handleGetRequest();
+            }
+        });
+    </script>
+</body>
+
+</html>
